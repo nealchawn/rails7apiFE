@@ -65,18 +65,57 @@
   }
 
   const updatePost = async() => {
+    const res = await fetch(`${API_URL}/${post_id.value}`, {
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        id: post_id.value,
+        title: title.value,
+        body: body.value
+      })
+    })
+
+    const data  = await res.json()
+    const index = posts.value.findIndex(post => post.id === post_id.value)
+    posts.value[index] = data
+
+    isEditing.value = false
+    title.value = ''
+    body.value = ''
+    post_id.value = 0
+
     return true;
   }
 
   const cancelEdit = () => {
-    return false;
+    isEditing.value = false
+    title.value = ''
+    body.value = ''
+    post_id.value = 0
+    return true;
   }
 
-  const deletePost = async (post_id) => {
-    await fetch(`${API_URL}/${post_id}`, {
+  const deletePost = async (id) => {
+    await fetch(`${API_URL}/${id}`, {
       method: 'DELETE'
     })
-    posts.value = posts.value.filter(post => post.id !== post_id)
+    posts.value = posts.value.filter(post => post.id !== id)
+  }
+
+  const editPost = async(id) => {
+    const post = posts.value.find(post => post.id === id)
+    
+    title.value = post.title
+    body.value = post.body
+    post_id.value = post.id
+    isEditing.value = true
+
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
   }
 </script>
 
