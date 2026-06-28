@@ -40,6 +40,11 @@
 
   const API_URL = "http://localhost:3000/posts"
 
+  onMounted(async () => {
+    const res = await fetch(API_URL)
+    posts.value = await res.json()
+  })
+
   const createPost = async () => {
     const res = await fetch(API_URL, {
       method: 'Post',
