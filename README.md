@@ -22,3 +22,8 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+#REF
+
+Setup A Ruby on Rails 7 API With React JS ~ Deanin
+Vue CRUD App With A Ruby On Rails 7 API Tutorial ~ Deanin
